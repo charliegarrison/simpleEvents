@@ -1,11 +1,17 @@
 var ee = {
   events: {},
-  on: function(eventName,cb) {
+  on: function(eventName,cb,context) {
     if(ee.events[eventName]) {
-      ee.events[eventName].push(cb);
+      ee.events[eventName].push({
+        cb: cb,
+        context: context
+      });
     }
     else {
-      ee.events[eventName] = [cb];
+      ee.events[eventName] = [{
+        cb: cb,
+        context: context
+      }];
     }
 
     return function () {
@@ -18,7 +24,12 @@ var ee = {
 
     if(ev) {
       ev.forEach(function(listener) {
-        listener(data);
+        if(listener.context) {
+          listener.cb.call(listener.context, data);
+        }
+        else {
+          listener.cb(data);
+        }
       });
     }
   }
