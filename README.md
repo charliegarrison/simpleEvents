@@ -1,2 +1,2 @@
 # simpleEvents
-Simple front end event library.
+Simple front end or back end event library.
