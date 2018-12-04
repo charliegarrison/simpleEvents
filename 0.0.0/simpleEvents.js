@@ -1,4 +1,13 @@
-var ee = {
+var attachPoint;
+
+if(typeof global !== "undefined") {
+  attachPoint = global;
+}
+else{
+  attachPoint = window;
+}
+
+attachPoint.ee = {
   events: {},
   on: function(eventName,cb,context) {
     if(ee.events[eventName]) {
