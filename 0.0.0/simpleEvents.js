@@ -24,8 +24,15 @@ attachPoint.ee = {
     }
 
     return function () {
-      var ind = ee.events[eventName].indexOf(cb);
-      ee.events[eventName].splice(ind,1);
+      var eventInd = -1;
+      ee.events[eventName].forEach(function(ev, ind) {
+        if(ev.cb === cb) {
+          eventInd = ind;
+        }
+      });
+      if(eventInd > -1) {
+        ee.events[eventName].splice(eventInd,1);
+      }
     };
   },
   emit: function(evName,data) {
