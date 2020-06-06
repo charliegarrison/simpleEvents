@@ -37,9 +37,9 @@ attachPoint.ee = {
   },
   emit: function(evName,data) {
     var ev = ee.events[evName];
-
     if(ev) {
-      ev.forEach(function(listener) {
+			var cloneSheeps = [...ev];
+      cloneSheeps.forEach(function(listener) {
         if(listener.context) {
           listener.cb.call(listener.context, data);
         }
